@@ -1,0 +1,19 @@
+// Ковариантность:
+List<Integer> l1 = new ArrayList<>();
+l1.add(42);
+List<? extends Number> l2 = l1; // read-only список.
+// Безопасное приведение потомка(Integer) к родителю (Number)
+
+
+// Контравариантность:
+List<Number> l3 = new ArrayList<>();
+
+List<? super Double> l4 = l3; // write-only список.
+// Безопасное приведение родителя (Number) к потомку (Double)
+
+// Такой механизм позволяет обходить небезопасное приведение типов,
+// когда в List<Double> могут оказаться значения типа Integer,
+// если сначала List<Double> привести к List<Number>
+
+
+в java ковариантность и контрвариантность поддерживается с помощью generic wildcards (extends/super)
