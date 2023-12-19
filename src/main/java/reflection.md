@@ -50,7 +50,7 @@ class General implements Serializable {
             var byteArrayOutputStream = new ByteArrayOutputStream();
             var objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
             objectOutputStream.writeObject((T) this);
-
+            
             var bais = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
             var objectInputStream = new ObjectInputStream(bais);
 
@@ -66,12 +66,12 @@ class General implements Serializable {
 }
 ```
 
-1. Я использовал метод clone() класса Object для глубокого копирования и копирования объекта. Но с помощью этого метода
+1. Я использовал метод clone() класса Object для глубокого копирования и копирования объекта. Но с помощью этого метода 
     нельзя сделать глубокое коприование: если копируемый объект содерит поля ссылочных типов, то эти поля не будут скопированы,
     а будет просто указаны ссылка на оригинальный объект, что некорректно. Глубокого копирования можно добиться, сериализовав
     объект в байт-массив, например, а затем десериализовав этот массив в новый объект. Таким образом будут созданы и копии
     всех "вложенных" объектов.
-
+    
     Примечание: изменение ссылки в методе deepCopy в решении курсанта не корректно (target = getCopy()). За пределами метода
     это изменение не будет "видно".
 
