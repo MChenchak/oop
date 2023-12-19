@@ -1,16 +1,32 @@
 import java.io.*;
+import java.lang.reflect.Field;
 
 // унаследован от базового класса Object
-public class General {
+public class General implements Serializable {
 
-    void copy(General copyTo) throws CloneNotSupportedException {
-        if (this.isClass(copyTo.getClass())) {
-            copyTo = (General) this.clone();
+    // копирование объекта (копирование содержимого одного объекта в другой существующий, включая DeepCopy
+    // - глубокое рекурсивное дублирование, подразумевающее также копирование содержимого объектов,
+    // вложенных в копируемый объект через его поля, атрибуты);
+    <T extends Any> void copy(T copyTo) {
+        if (!this.isClass(copyTo.getClass())) throw new RuntimeException();
+        for (Field field : this.getClass().getDeclaredFields()) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(this);
+                Field copyToField = copyTo.getClass().getDeclaredField(field.getName());
+                copyToField.setAccessible(true);
+                copyToField.set(copyTo, value);
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     // клонирование объекта (создание нового объекта и глубокое копирование в него исходного объекта)
-    // будет использоваться метод базового класса Object - clone()
+    <T extends Any> T deepClone() {
+        byte[] serialized = this.serialize();
+        return (T) General.deserialize(serialized).clone();
+    }
 
     // сравнение объектов (включая глубокий вариант)
     // будет использоваться метод базового класса Object - equals()
@@ -27,10 +43,10 @@ public class General {
     }
 
     // десериализация
-    General deserialize(byte[] data) {
+    static <T extends Any> T deserialize(byte[] data) {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
         try (ObjectInputStream ois = new ObjectInputStream(bis)) {
-            return (General) ois.readObject();
+            return (T) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
