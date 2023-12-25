@@ -65,6 +65,13 @@ public class General implements Serializable {
 
     // получение реального типа объекта (непосредственного класса, экземпляром которого он был создан)
     // будет использоваться метод базового класса Object - getClass()
+
+    // попытка присваивания
+    <T extends General> void assignment_attempt(General target, T source) {
+        if (source != null) {
+            target = source;
+        }
+    }
 }
 
 // реализация интерфейса Cloneable необходима для работы метода clone класса Object
@@ -77,6 +84,13 @@ class Any extends General implements Cloneable {
             return (Any) super.clone();
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
+        }
+    }
+
+    // попытка присваивания
+    <T extends Any> void assignment_attempt(Any target, T source) {
+        if (source != null) {
+            target = source;
         }
     }
 }
