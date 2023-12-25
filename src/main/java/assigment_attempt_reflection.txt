@@ -1,0 +1,17 @@
+Вариант решения курсанта
+
+class General implements Serializable {
+
+    public static <TFrom extends Any, TTo extends Any>
+            TTo assignmentAttempt(TFrom from, TTo to) {
+
+        var classFrom = from.getType();
+        var classTo = to.getType();
+        if (classTo.isAssignableFrom(classFrom)) {
+            return (TTo) from;
+        }
+        return None;
+}
+
+
+1. Метод преобразованиея должен возвращать какой-то тип
