@@ -1,0 +1,38 @@
+Для решения задачи понадобится класс, содержащий определение метода сложения - Adder<T> extends Any
+Сложение можно определить для разных типов путем добавления метода сложения для каждого типа.
+
+public class Adder<T> extends Any {
+
+    public T sum(T first, T second){
+
+        T ans = null;
+
+        if(first instanceof String){
+            ans = sumString(first, second);
+        }
+
+        if(first instanceof Integer){
+            ans = sumInteger(first, second);
+        }
+
+        if (first instanceof Double){
+            ans = sumDouble(first, second);
+        }
+
+        return ans;
+    }
+
+    private T sumString(T first, T second){
+        return (T)(first + (String)second);
+    }
+
+    private T sumInteger(T first, T second){
+        Integer sum = (Integer)first + (Integer)second;
+        T value = (T)sum;
+        return value;
+    }
+
+    private T sumDouble(T first, T second){
+        return (T)((Double)((Double)(first) + (Double)second));
+    }
+}
