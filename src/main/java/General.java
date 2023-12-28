@@ -65,6 +65,11 @@ public class General implements Serializable {
 
     // получение реального типа объекта (непосредственного класса, экземпляром которого он был создан)
     // будет использоваться метод базового класса Object - getClass()
+
+    public Any add(Any other) {
+
+        return new Any();
+    }
 }
 
 // реализация интерфейса Cloneable необходима для работы метода clone класса Object
