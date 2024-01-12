@@ -1,0 +1,57 @@
+1. Наследование вариаций
+
+class Animal {
+    void makeSound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+// Наследники с вариациями
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Cat meows");
+    }
+}
+
+2. Наследование с конкретизацией (reification inheritance)
+
+abstract class Animal {
+    abstract void makeSound();
+}
+
+// Наследники с конкретизацией
+class Dog extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void makeSound() {
+        System.out.println("Cat meows");
+    }
+}
+
+3. Структурное наследование (structure inheritance)
+
+    Классу добавляется автономное свойство - объекты класса могут сравниваться
+public class Student  implements Comparable<Student>{
+    private Integer id;
+    private String name;
+    private String department;
+
+    @Override
+    public int compareTo(Student student) {
+       return this.name.compareTo(student.name);
+    }
+}
