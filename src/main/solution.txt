@@ -1,0 +1,30 @@
+abstract class Point {
+    int x;
+    int y;
+
+    Point(int x, int y) {
+        this.x = x;
+        this.y = y
+    }
+
+    // Метод определяет ближе ли текущая точка к началу координат, чем переданная в качестве аргумента
+    boolean closerToO(Point P) {
+        return distanceToO() <= p.distanceToO();
+    }
+
+    abstract int distanceToO();
+}
+
+class CartesianPoint extends Point {
+
+    CartesianPoint(int x, int y) {
+        super(x, y)
+    }
+
+    // Необходимо сделать конкретную реализацию абстрактного метода. Это пример льготной реализации
+    int distanceToO() {
+        return Math.sqrt(x*x + y*y);
+    }
+}
+
+и тут же происходит наследование реализации метода-шаблона closerToO(Point P)
