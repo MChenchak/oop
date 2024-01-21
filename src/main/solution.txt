@@ -1,0 +1,45 @@
+Класс AirPlane(обычный самолет) и его наследник FighterJet(военный истребитель).
+
+Оба типа могут перевозить грузы. Иерархия грузов: Load(обычный груз, перевозит обычный самолет) и наследник Weapon(оружие. может быть загружено на истребитель")
+"загрузка" грузов происходит через метод accept().
+
+Если в классе FighterJet усилить предусловие для метода accept() - тип загружаемого груза болжен быть только Weapon, то
+будет нарушен принцип подтановки Лисков.
+
+class Airplane {
+    public void accept(Load load) {
+        System.out.println("На борт принят обычный груз");
+    }
+}
+
+class FighterJet extends Airplane {
+    public void accept(Weapon load) {
+        System.out.println("На борт принято оружие");
+    }
+}
+
+class Load {
+    String name = "Какой-то груз";
+    public String  getName() {
+       return name;
+    }
+}
+
+class Weapon extends Load {
+    String name = "Оружие";
+    public String  getName() {
+        return name;
+    }
+}
+
+class Client {
+    public static void main(String[] args) {
+        Airplane airplane = new FighterJet();
+        airplane.accept(new Weapon()); // тут будет вызван метод accept класса Airplane и в военный самолет будет загружен обычный груз.
+    }
+}
+
+Допустим у обоих классов есть метод взлет. Обычный самолет модет летать на высоте до 7 км. То есть параметр "высота полета"
+должен быть <= 7км. это постусловие
+Если ослабить это постусловие в FighterJet и сказать, что параметр "высота полета"
+должен быть от 5 до 7 км. то это может привести к тому, что военный самодет будет летать на высоте и до 5 км
